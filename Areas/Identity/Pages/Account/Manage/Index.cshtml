@@ -1,0 +1,72 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Profile";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<h3>@ViewData["Title"]</h3>
+<partial name="_StatusMessage" for="StatusMessage" />
+<form id="profile-form" method="post" enctype="multipart/form-data">
+
+<div class="row">
+    <div class="col-md-6">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-floating">
+                <input asp-for="Username" class="form-control" disabled />
+                <label asp-for="Username" class="form-label"></label>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Input.FirstName" class="form-control" />
+                <label asp-for="Input.FirstName" class="form-label"></label>
+                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+            </div>
+                <div class="form-floating">
+                <input asp-for="Input.LastName" class="form-control" />
+                <label asp-for="Input.LastName" class="form-label"></label>
+                <span asp-validation-for="Input.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Input.PhoneNumber" class="form-control" />
+                <label asp-for="Input.PhoneNumber" class="form-label"></label>
+                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+            </div>
+            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+    </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Input.ProfilePicture" class="w-100"></label>
+                @if (Model.Input.ProfilePicture != null)
+                {
+                    <img id="ProfilePicture" alt="Profile" class="ProfilePicture" src="data:image/*;base64,@(Convert.ToBase64String(Model.Input.ProfilePicture))" />
+                }
+                else
+                {
+                    <img id="ProfilePicture" alt="Profile" class="ProfilePicture" src="~/images/avatar.JPG" />
+                }
+                <div class="custom-file mt-2"> 
+                <input 
+                    asp-for="Input.ProfilePicture"
+                    accept="image/*" 
+                    type="file" 
+                    class="custom-file-input"
+                           onchange="document.getElementById('ProfilePicture').src = window.URL.createObjectURL(this.files[0]),displayFileName(this)" />
+                    <label asp-for="Input.ProfilePicture" class="custom-file-label"></label>
+                    <span asp-validation-for="Input.ProfilePicture" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+</div>
+    
+</form>
+<script>
+    function displayFileName(input) {
+        var fileName = input.files[0].name;
+        var label = input.nextElementSibling; // Get the label element next to the input
+        label.innerHTML = fileName; // Set the label's text content to the file name
+    }
+</script>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

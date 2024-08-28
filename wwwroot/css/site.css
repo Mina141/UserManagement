@@ -1,0 +1,28 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+.ProfilePicture{
+    height:245px;
+    width:235px;
+    object-fit:cover;
+}
+.avatar{
+    height:40px;
+    width:40px;
+    object-fit:cover
+}
